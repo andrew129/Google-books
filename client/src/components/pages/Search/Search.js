@@ -13,21 +13,23 @@ class Search extends Component {
     componentDidMount() {
     }
 
-    handleInputChange = event => {
-        console.log(event.target)
+    handleChange = event => {
         const { name, value } = event.target;
         this.setState({
           [name]: value
         });
     };
 
-    handleFormSubmit = event => {
-        event.preventDefault()
+    handleSubmit = event => {
         console.log('hello')
+        event.preventDefault()
         const searchValue = this.state.search
         console.log(searchValue)
-        axios.get(`https://www.googleapis.com/books/v1/volumes/?q=${searchValue}`).then(res => {
+        axios.get(`https://www.googleapis.com/books/v1/volumes/?q=${searchValue}&key=AIzaSyDy5YDtxcY811zWrBkj4EIcC1iAM6RQpw8`).then(res => {
             console.log(res)
+        })
+        .catch(err => {
+            console.log(err)
         })
     };
 
@@ -37,10 +39,11 @@ class Search extends Component {
                 <NavBar/>
                 <Jumbotron/>
                 <SearchForm
+                    title={this.state.search}
                     value={this.state.search}
                     name="search"
-                    onChange={this.handleInputChange}
-                    onSubmit={this.handleFormSubmit}
+                    handleChange={this.handleChange}
+                    handleSubmit={this.handleSubmit}
                 />
             </React.Fragment>
         )

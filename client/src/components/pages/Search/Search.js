@@ -3,6 +3,7 @@ import NavBar from '../../NavBar/NavBar';
 import Jumbotron from '../../Jumbotron/Jumbotron';
 import SearchForm from '../../SearchForm/SearchForm';
 import axios from 'axios';
+const API_KEY = process.env.REACT_APP_API_KEY; 
 
 class Search extends Component {
     state = {
@@ -21,11 +22,11 @@ class Search extends Component {
     };
 
     handleSubmit = event => {
-        console.log('hello')
         event.preventDefault()
+        console.log('hello')
         const searchValue = this.state.search
         console.log(searchValue)
-        axios.get(`https://www.googleapis.com/books/v1/volumes/?q=${searchValue}&key=AIzaSyDy5YDtxcY811zWrBkj4EIcC1iAM6RQpw8`).then(res => {
+        axios.get(`https://www.googleapis.com/books/v1/volumes/?q=${searchValue}&key=${API_KEY}`).then(res => {
             console.log(res)
         })
         .catch(err => {
@@ -43,7 +44,7 @@ class Search extends Component {
                     value={this.state.search}
                     name="search"
                     handleChange={this.handleChange}
-                    handleSubmit={this.handleSubmit}
+                    handleSubmit={this.handleFormSubmit}
                 />
             </React.Fragment>
         )
